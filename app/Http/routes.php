@@ -10,10 +10,17 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use App\Http\Controllers\SitesController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\ArticleController;
+
+Route::get('/', 'SitesController@index');
+
+Route::get('/phpinfo', 'SitesController@phpinfo');
+
+Route::get('/about/{id}', 'SitesController@about');
+
+Route::resource('/articles', 'ArticleController');
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +32,3 @@ Route::get('/', function () {
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
-Route::group(['middleware' => ['web']], function () {
-    //
-});
