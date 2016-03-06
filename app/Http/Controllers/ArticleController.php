@@ -25,7 +25,8 @@ class ArticleController extends Controller
 
     public function store()
     {
-
+        $input = Request::all();
+        return $input;
     }
 
     public function show($id)
