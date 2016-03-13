@@ -1,6 +1,5 @@
 @extends('app')
 @section('content')
-@foreach($articles as $article)
 <article class="format-image group">
     <h2 class="post-title pad">
         <a href="/articles/{{ $article->id }}"> {{ $article->title }}</a>
@@ -17,9 +16,9 @@
             <div class="entry custome">
                 {{ $article->intro }}
             </div>
-            <a class="more-link-custom" href="/articles/{{ $article->id }}"><span><i>More</i></span></a>
+            <a class="more-link-custom" href="/articles/{{ $article->id }}"><span><i>更多</i></span></a>
         </div>
     </div>
 </article>
-@endforeach
+
 @stop
