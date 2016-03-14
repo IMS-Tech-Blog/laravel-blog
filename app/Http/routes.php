@@ -32,3 +32,9 @@ Route::resource('/articles', 'ArticleController');
 | kernel and includes session state, CSRF protection, and more.
 |
 */
+
+Route::group(['middleware' => 'web'], function () {
+    Route::auth();
+
+    Route::get('/home', 'HomeController@index');
+});
