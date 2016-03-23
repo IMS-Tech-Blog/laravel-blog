@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Gate;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
@@ -11,17 +12,34 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller {
 
-	// public function __construct()
- //    {
- //        $this->middleware('auth');
- //    }
+	public function __construct() {
+        $this->middleware('auth');
+    }
 
 	public function index() {
+		if (Gate::denies('userCDSU')) {       
+    		return self::getErrorMsg("索厘！您没有这个权限呢！");
+		}
     	$users = User::all();
         return view('user.index', ['user' => $users]);
     }
 
+    public function show($id) {
+    	$result = self::getUser($id);
+    	if($result['code'] == 400) {
+    		return self::getDisappearMsg("亲，查找不到对应的用户信息，请检查后重试哦！");
+    	}
+    	$user = $result['data'];
+		$result['code'] = '200';
+		$data = ["name"=>$user->name,"email"=>$user->email,"role_id"=>$user->role_id];
+    	$result['data'] = $data;
+    	return json_encode($result);
+}
+
      public function create() {
+		if (Gate::denies('userCDSU')) {       
+    		return self::getErrorMsg("索厘！您没有这个权限呢！");
+		}
      	$postUrl = route('user.store');
     $csrf_field = csrf_field();
     $html = <<<CREATE
@@ -38,6 +56,9 @@ CREATE;
     }
 
     public function store(Request $request) {
+		if (Gate::denies('userCDSU')) {       
+    		return self::getErrorMsg("索厘！您没有这个权限呢！");
+		}
     	$data = $request->all();
     	$validator = self::storeValidate($data);
     	if ($validator->fails()) {
@@ -49,11 +70,14 @@ CREATE;
     }
 
     public function edit($id) {
-    	if (!$id) 
+		if (Gate::denies('userCDSU')) {       
+    		return self::getErrorMsg("索厘！您没有这个权限呢！");
+		}
+    	$result = self::getUser($id);
+    	if($result['code'] == 400) {
     		return self::getDisappearMsg("亲，查找不到对应的用户信息，请检查后重试哦！");
-    	$user = User::find($id);
-    	if(!$user)
-        	return self::getDisappearMsg("亲，查找不到对应的用户信息，请检查后重试哦！");
+    	}
+    	$user = $result['data'];
     	$postUrl = route('user.update', ['userId'=>$id]);
     	$csrf_field = csrf_field();
     	$html = <<<UPDATE
@@ -71,11 +95,14 @@ UPDATE;
 	}
 
 	public function update(Request $request, $id) {
-		if (!$id) 
+		if (Gate::denies('userCDSU')) {       
+    		return self::getErrorMsg("索厘！您没有这个权限呢！");
+		}
+		$result = self::getUser($id);
+    	if($result['code'] == 400) {
     		return self::getDisappearMsg("亲，查找不到对应的用户信息，请检查后重试哦！");
-    	$user = User::find($id);
-    	if(!$user)
-        	return self::getDisappearMsg("亲，查找不到对应的用户信息，请检查后重试哦！");
+    	}
+    	$user = $result['data'];
         $data = $request->all();
         $validator = self::updateValidate($data);
     	if ($validator->fails()) { 
@@ -87,6 +114,9 @@ UPDATE;
 	}
 
 	public function destroy($id) {
+		if (Gate::denies('userCDSU')) {       
+    		return self::getErrorMsg("索厘！您没有这个权限呢！");
+		}
     	$result = self::getUser($id);
     	if($result['code'] == 400) {
     		return self::getDisappearMsg("亲，查找不到对应的用户信息，请检查后重试哦！");
@@ -114,7 +144,7 @@ UPDATE;
     	$result['code'] = '400';
     	$data = array();
     	if($msg->has('name')) {
-    		$data['name'] = $msg->first('email');
+    		$data['name'] = $msg->first('name');
     	}
     	if($msg->has('email')) {
     		$data['email'] = $msg->first('email');
@@ -137,6 +167,12 @@ UPDATE;
 
     public function getSuccessMsg($msg) {
     	$result['code'] = '200';
+    	$result['msg'] = $msg;
+    	return json_encode($result);
+    }
+
+    public function getErrorMsg($msg) {
+    	$result['code'] = '500';
     	$result['msg'] = $msg;
     	return json_encode($result);
     }

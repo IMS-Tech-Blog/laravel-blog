@@ -26,6 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
-        //
+        $gate->define('userCDSU', function ($user) {
+            return $user->role_id === 1;
+        });
     }
 }
