@@ -110,7 +110,7 @@ UPDATE;
        		return self::getInvalidMsg($msg);
     	}
     	self::updateUser($user, $data);
-    	return "success";
+    	return getSuccessMsg("yep!");
 	}
 
 	public function destroy($id) {
@@ -181,7 +181,7 @@ UPDATE;
     	return $validator = Validator::make($data, [
         	'name' => 'required|max:255',
         	'email' => 'required|email|max:255|unique:users',
-        	'password' => 'required|min:8',
+        	'password' => 'required|min:8|max:60',
         	'role_id' => 'required',
     	]);
     }
