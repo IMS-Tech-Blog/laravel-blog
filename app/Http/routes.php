@@ -41,4 +41,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::resource('user','UserController');
 
     Route::resource('image','ImageController');
+
+    Route::get('/image/{projectName}/{pixelLevel}/{imageName}','ImageController@show');
 });

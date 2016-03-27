@@ -12,7 +12,7 @@ use App\Http\Controllers\common\ReturnMsgUtil;
 
 class ImageController extends Controller {
 	public static $maxImageSize = 2 * 1024 * 1024;
-    public static $imagePathPrefix = '/laravelBlog';
+    public static $imagePathPrefix = '/image/laravelBlog';
     public static $acceptImageTypes = array('jpg', 'jpeg', 'png', 'gif');
     public static $pixelLevels = array(1, 2, 3, 4, 5, 6, 7, 8, 9);
 
@@ -29,11 +29,24 @@ CREATE;
     return $html;
     }
 
+    public function show(Request $request) {
+        $status = 200;
+        $imagePath = '/' . $request->path();
+        if(!Storage::exists($imagePath)){
+            return ReturnMsgUtil::getErrorMsg("不好意思呀，您所查看的图片不存在！");
+        }
+        $mimeType = Storage::mimeType($imagePath);
+        return response(Storage::get($imagePath), $status)->header('Content-Type', $mimeType);
+    }
+
     public function store(Request $request) {
     	$result = self::imageValidate($request, "myfile");
     	if (!isset($result['statue']) || !$result['statue']) {
     		return $result;
     	}
+        if (isset($result['imagePath']) && !empty($result['imagePath'])) {
+            return response()->json($result);
+        }
         return self::save($result);
     }
 
@@ -50,8 +63,12 @@ CREATE;
         if (!in_array(strtolower($imageType), self::$acceptImageTypes)) {
             return ReturnMsgUtil::getErrorMsg("图片格式错误，只支持jpg，jpeg，png，gif格式的图片，请重新上传！");
         }
-        $imagePath = $image->getRealPath();
-        $imageMD5 = md5_file($imagePath);
+        $imageTmpPath = $image->getRealPath();
+        $imageMD5 = md5_file($imageTmpPath);
+        $imagePath = self::getImagePath($image, $imageMD5);
+        if(Storage::exists($imagePath)){
+            return array('statue'=>true, 'msg'=>'图片已存在，不可重复上传，imagePath为图片存储路径。', 'imagePath'=>$imagePath);
+        }
         return array('statue'=>true, 'image'=>$image, 'imageMD5'=>$imageMD5);
     }
 
@@ -67,7 +84,7 @@ CREATE;
         if (!$result) {
             return ReturnMsgUtil::getErrorMsg("图片元数据存储异常，请急忙呼叫管理员！");
         }
-        return ReturnMsgUtil::getSuccessMsg("恭喜你！图片已经顺利存储啦！");
+        return json_encode(array('statue'=>true, 'imagePath'=>$result['imagePath']));
     }
 
     public function saveImage($image, $imageMD5) {
@@ -77,6 +94,9 @@ CREATE;
             $imagePath,
             file_get_contents($imageTmpPath)
         );
+        if(!Storage::exists($imagePath)){
+            return array('statue'=>false);
+        }
         return array('statue'=>$result, 'imagePath'=>$imagePath);
     }
 
@@ -112,7 +132,6 @@ CREATE;
             return $tmpNum . "HT";
         }
         $tmpNum = intval($tmpNum/10);
-        var_dump($tmpNum);
         if (in_array($tmpNum, self::$pixelLevels)) {
             return $tmpNum . "M";
         }
