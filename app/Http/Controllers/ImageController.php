@@ -80,8 +80,8 @@ CREATE;
         if (!$result['statue']) {
             return ReturnMsgUtil::getErrorMsg("图片存储异常，请急忙呼叫管理员！");
         }
-        $result = self::saveMetadata($image, $imageMD5, $result['imagePath']);
-        if (!$result) {
+        $resultFromDB = self::saveMetadata($image, $imageMD5, $result['imagePath']);
+        if (!$resultFromDB) {
             return ReturnMsgUtil::getErrorMsg("图片元数据存储异常，请急忙呼叫管理员！");
         }
         return json_encode(array('statue'=>true, 'imagePath'=>$result['imagePath']));

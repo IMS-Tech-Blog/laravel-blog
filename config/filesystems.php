@@ -45,7 +45,7 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => 'E:\laraveBlogImage',
+            'root' => env('IMAGE_PATH', '/home/www/laravel/image'),
         ],
 
         'public' => [
