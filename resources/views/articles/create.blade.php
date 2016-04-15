@@ -1,7 +1,7 @@
 @extends('app')
 @section('content')
     <h1>Write New Post</h1>
-{!! Form::open() !!}
+{!! Form::open(['url'=>'articles/create']) !!}
     <div class="form-group">
        {!! Form::label('title','Title:') !!}
        {!! Form::text('title',null,['class'=>'form-control']) !!}
