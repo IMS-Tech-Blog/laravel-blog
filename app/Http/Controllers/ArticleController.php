@@ -37,7 +37,7 @@ class ArticleController extends Controller
 
     public function update()
     {
-        # code ... 5
+        # code ... 6
     }
 
     public function edit()
