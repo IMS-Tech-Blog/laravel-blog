@@ -22,6 +22,8 @@ Route::get('/about/{id}', 'SitesController@about');
 
 Route::resource('/articles', 'ArticleController');
 
+Route::get('/login', 'ArticleController@login');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes

@@ -1,0 +1,22 @@
+{
+  "name": "webapp-blog",
+  "version": "0.0.0",
+  "description": "blog built with typescript&&react",
+  "main": "index.js",
+  "scripts": {
+    "test": "tsc"
+  },
+  "keywords": [
+    "typescript",
+    "react",
+    "redux",
+    "webpack"
+  ],
+  "author": "zhancheng.li",
+  "license": "BSD-2-Clause",
+  "dependencies": {
+    "react-dom": "~15.0.1",
+    "require": "~2.4.20",
+    "react": "~15.0.1"
+  }
+}

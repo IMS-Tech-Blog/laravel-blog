@@ -1,0 +1,207 @@
+@charset "utf-8";
+/* css reset */
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+dd,
+dl,
+dt,
+li,
+ol,
+ul,
+fieldset,
+form,
+label,
+legend,
+button,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 100%;
+  line-height: 1;
+  font-family: inherit;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+ol,
+ul {
+  list-style: none;
+}
+q:before,
+q:after,
+blockquote:before,
+blockquote:after {
+  content: "";
+}
+a {
+  color: black;
+  text-decoration: none;
+}
+.line {
+  text-decoration: underline;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+.container {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  background: url('../images/login_bg.jpg') no-repeat;
+  background-size: cover;
+}
+.container .avatar {
+  padding: 200px 0 25px;
+  text-align: center;
+}
+.container .avatar img {
+  margin-left: -2em;
+}
+.container .avatar p {
+  color: white;
+  font-family: 'simhei';
+  font-size: 2em;
+  margin: 40px 0;
+}
+.container .avatar p .reg {
+  color: white;
+}
+.container .avatar p .reg:hover {
+  text-decoration: underline;
+}
+.container .information {
+  text-align: center;
+}
+.container .information .frame {
+  width: 540px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 0;
+}
+.container .information .frame * {
+  font-size: 0;
+}
+.container .information .frame .info {
+  width: 96.6%;
+  height: 62px;
+  filter: progid:DXImageTransform.Microsoft.Gradient(gradientType=0, startColorStr=#F5F2F0, endColorStr=#ECEAE9);
+  /* IE 6 7 8 */
+  background: linear-gradient(to bottom, #F5F2F0, #ECEAE9);
+  background: -ms-linear-gradient(top, #F5F2F0, #ECEAE9);
+  /* IE 10 */
+  background: -moz-linear-gradient(top, #F5F2F0, #ECEAE9);
+  /* Firefox 3.6+ */
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F5F2F0), to(#ECEAE9));
+  /* Safari 4-5, Chrome 1-9 */
+  background: -webkit-linear-gradient(top, #F5F2F0, #ECEAE9);
+  /*Safari5.1 Chrome10+*/
+  background: -o-linear-gradient(top, #F5F2F0, #ECEAE9);
+  /* Opera 11.10+*/
+  border-left: 1.5px solid #8E7369;
+  border-right: 1.5px solid #8E7369;
+  padding: 6px 8.4px 0px;
+}
+.container .information .frame .info:hover .login-btn {
+  right: -51px;
+}
+.container .information .frame .info .inputs {
+  width: 219px;
+  padding: 20px 15px;
+  margin-left: 8px;
+  background: url('../images/input_bg.png') no-repeat;
+  float: left;
+  display: inline;
+}
+.container .information .frame .info .inputs input {
+  font-size: 20px;
+  color: #aaa;
+  height: 20px;
+  width: 90%;
+  display: inline;
+  background: #F5F6F7;
+  border: none;
+  outline: none;
+}
+.container .information .frame .info .inputs .invalid {
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+}
+.container .information .frame .info .inputs .invalid:hover {
+  font-weight: bold;
+}
+.container .information .frame .info .login-btn {
+  width: 51px;
+  height: 23px;
+  padding: 0;
+  margin: 0;
+  transition: right 0.3s ease-in-out;
+  -webkit-transition: right 0.3s ease-in-out;
+  -moz-transition: right 0.3s ease-in-out;
+  -o-transition: right 0.3s ease-in-out;
+  -ms-transition: right 0.3s ease-in-out;
+  position: absolute;
+  background: url('../images/login_btn.png') no-repeat;
+  padding: 16px 0;
+  right: 0px;
+  z-index: -1;
+}
+.container .information .frame .info .login-btn a {
+  color: white;
+  font-family: 'simhei';
+  font-size: 20px;
+}
+.on {
+  display: block;
+}
+.off {
+  display: none;
+}

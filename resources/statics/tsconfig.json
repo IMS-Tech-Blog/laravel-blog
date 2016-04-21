@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "module": "amd",
+        "watch": true, 
+        "outDir": "javascripts", 
+        "jsx": "react", 
+        "removeComments": true, 
+        "preserveConstEnums": true, 
+        "target": "es5",
+        "noImplicitAny": false,
+        "sourceMap": false
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
