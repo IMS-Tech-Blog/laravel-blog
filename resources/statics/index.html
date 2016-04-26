@@ -7,7 +7,39 @@
 	<link rel="stylesheet" type="text/css" href="stylesheets/login.css">
 </head>
 <body id="output">
-	
+	<div class="container">
+		<div class="avatar">
+			<img src="statics/images/user_avatar.png" alt="avatar" />
+			<p>新用户？<a href="javascript:void(0);" class="reg">注册试试！</a></p>
+		</div>
+		<div class="information">
+			<form name="fm" action="reg">
+				<ul class="frame">
+					<li>
+						<img class="line-frame" src="statics/images/top_frame.png" alt="" />
+					</li>
+					<li>
+						<div class="info" id="info">
+							<div class="inputs">
+								<input type="text" required="required" name="username" placeholder="用户名" value="用户名" onfocus="this.select();" />
+								<span class="invalid off">&times;</span>
+							</div>
+							<div class="inputs">
+								<input type="password" required="required" name="password" placeholder="密码" onfocus="this.select();" />
+								<span class="invalid off">&times;</span>
+							</div>
+							<div class="login-btn" id="login">
+								<a href="javascript:void(0);">GO</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<img class="line-frame" src="statics/images/bottom_frame.png" alt="" />
+					</li>
+				</ul>
+			</form>
+		</div>
+	</div>
 	<!--[if IE 6]>
 	    <script type="text/javascript" src="public/libs/DD_belatedPNG.min.js"></script>
 	
