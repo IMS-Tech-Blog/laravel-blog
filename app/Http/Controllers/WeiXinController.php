@@ -12,10 +12,21 @@ use App\User;
 class WeiXinController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        
-        return 'hello';
+        $signature = $request["signature"];
+        $timestamp = $request["timestamp"];
+        $nonce = $request["nonce"];
+        $token = 'weixin';
+        $tmpArr = array($token, $timestamp, $nonce);
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode( $tmpArr );
+        $tmpStr = sha1( $tmpStr );
+        if( $tmpStr == $signature ){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function login() 
