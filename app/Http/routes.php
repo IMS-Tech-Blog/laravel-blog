@@ -26,6 +26,8 @@ Route::get('/', function () {
 
 Route::resource('/articles', 'ArticleController');
 
+Route::resource('/weixin', 'WeiXinController');
+
 
 /*
 |--------------------------------------------------------------------------
