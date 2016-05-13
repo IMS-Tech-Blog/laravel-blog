@@ -23,9 +23,9 @@ class WeiXinController extends Controller
         $tmpStr = implode( $tmpArr );
         $tmpStr = sha1( $tmpStr );
         if( $tmpStr == $signature ){
-            return true;
+            return 'true';
         }else{
-            return false;
+            return 'false';
         }
     }
 
