@@ -14,15 +14,20 @@ use App\Http\Controllers\SitesController;
 
 use App\Http\Controllers\ArticleController;
 
-Route::get('/', 'SitesController@index');
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/phpinfo', 'SitesController@phpinfo');
+// Route::get('/', 'SitesController@index');
 
-Route::get('/about/{id}', 'SitesController@about');
+// Route::get('/phpinfo', 'SitesController@phpinfo');
+
+// Route::get('/about/{id}', 'SitesController@about');
 
 Route::resource('/articles', 'ArticleController');
 
-Route::get('/login', 'ArticleController@login');
+Route::resource('/weixin', 'WeiXinController');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +41,11 @@ Route::get('/login', 'ArticleController@login');
 */
 
 Route::group(['middleware' => 'web'], function () {
-    Route::auth();
+    // Route::auth();
+
+    Route::post('/login', 'LoginLogoutController@login');
+    
+    Route::post('/logout', 'LoginLogoutController@logout');
 
     Route::get('/home', 'HomeController@index');
 
