@@ -1,47 +1,54 @@
 /**
  * webpack plugins list
  */
-import webpack from 'webpack';
+import webpack            from 'webpack';
 // import AppCachePlugin from 'appcache-webpack-plugin';
 import {
   MANIFEST_PATH
-} from './path.config.js';
+}                         from './path.config.js';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
+import HtmlWebpackPlugin  from 'html-webpack-plugin';
 
 function instance(plugin) {
   const args = Array.prototype.slice.call(arguments, 1);
   return function() {
-    return new plugin(...arguments || ...args);
+    if(arguments.length) {
+      return new plugin(...arguments);
+    } else {
+      return new plugin(...args);
+
+    }
   }
 }
 
-const optimize = webpack.optimize;
+const optimize            = webpack.optimize;
 // ignore some files
-export const ignore = instance(webpack.IgnorePlugin);
+export const ignore       = instance(webpack.IgnorePlugin);
 // prefetch resources
-export const prefetch = instance(webpack.PrefetchPlugin);
+export const prefetch     = instance(webpack.PrefetchPlugin);
 // resolver
-export const resolver = instance(webpack.ResolverPlugin);
+export const resolver     = instance(webpack.ResolverPlugin);
 // banner
-export const banner = instance(webpack.BannerPlugin, '---default comment---');
+export const banner       = instance(webpack.BannerPlugin, '---default comment---');
 // optimize delete the same things
-export const dedupe = instance(optimize.DedupePlugin);
+export const dedupe       = instance(optimize.DedupePlugin);
 // limitchunkcount
-export const limitChunk = instance(optimize.LimitChunkCountPlugin, {
+export const limitChunk   = instance(optimize.LimitChunkCountPlugin, {
   maxChunk: 3
 });
 // minchunksize
-export const minChunk = instance(optimize.MinChunkSizePlugin);
+export const minChunk     = instance(optimize.MinChunkSizePlugin);
 // occurrence
-export const occurrence = instance(optimize.OccurrenceOrderPlugin);
+export const occurrence   = instance(optimize.OccurrenceOrderPlugin);
 // uglify
-export const uglify = instance(optimize.UglifyJsPlugin);
+export const uglify       = instance(optimize.UglifyJsPlugin);
 // commonchunk
-export const commonChunk = instance(optimize.CommonsChunkPlugin, {
+export const commonChunk  = instance(optimize.CommonsChunkPlugin, {
   name    : 'vendor',
   filename: 'vendor.js'
 });
 // dll
-export const dll = instance(webpack.DllPlugin, {
+export const dll          = instance(webpack.DllPlugin, {
   path   : 'manifest.json',
   name   : '[name]',
   context: __dirname
@@ -57,23 +64,31 @@ export const dllReference = instance(webpack.DllReferencePlugin, {
 // export const imageMin = instance(ImageminPlugin);
 /** dependence */
 // define
-export const define = instance(webpack.DefinePlugin, {
-  __DEV__    : JSON.stringify(JSON.parse(process.env.BUILD_ENV || 'true')),
+export const define       = instance(webpack.DefinePlugin, {
+  __DEV__    : JSON.stringify(JSON.parse(process.env.BUILD_DEV || 'true')),
   __RELEASE__: JSON.stringify(JSON.parse(process.env.BUILD_RELEASE || 'false'))
 });
 // provide
-export const provide = instance(webpack.ProvidePlugin);
+export const provide      = instance(webpack.ProvidePlugin);
 // hotModule
-export const hotModule = instance(webpack.HotModuleReplacementPlugin);
+export const hotModule    = instance(webpack.HotModuleReplacementPlugin);
 // extendedApi
-export const extendedApi = instance(webpack.ExtendedApiPlugin);
+export const extendedApi  = instance(webpack.ExtendedApiPlugin);
 // noErrors
-export const noErrors = instance(webpack.NoErrorsPlugin);
+export const noErrors     = instance(webpack.NoErrorsPlugin);
 // watchIgnore
-export const watchIgnore = instance(webpack.WatchIgnorePlugin);
+export const watchIgnore  = instance(webpack.WatchIgnorePlugin);
+// clean-webpack-plugin
+export const cleanWebpack = instance(CleanWebpackPlugin, ['build'], {
+  root   : ROOT_PATH,
+  verbose: true,
+  dry    : false
+});
+// html-webpack-plugin
+export const htmlWebpack  = instance(HtmlWebpackPlugin);
 
 // default
-export default {
+export default [
   ignore,
   prefetch,
   resolver,
@@ -91,5 +106,7 @@ export default {
   hotModule,
   extendedApi,
   noErrors,
-  watchIgnore
-}
+  watchIgnore,
+  cleanWebpack,
+  htmlWebpack
+];
