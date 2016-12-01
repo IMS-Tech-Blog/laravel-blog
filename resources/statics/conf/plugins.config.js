@@ -1,10 +1,12 @@
 /**
  * webpack plugins list
  */
+import fs                 from 'fs';
 import webpack            from 'webpack';
 // import AppCachePlugin from 'appcache-webpack-plugin';
 import {
-  MANIFEST_PATH
+  MANIFEST_PATH,
+  ROOT_PATH
 }                         from './path.config.js';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import HtmlWebpackPlugin  from 'html-webpack-plugin';

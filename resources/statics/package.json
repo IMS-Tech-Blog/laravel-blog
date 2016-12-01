@@ -11,22 +11,37 @@
   },
   "betterScripts": {
     "build:dll": {
-      "command": "webpack --config webpack.config.babel.js"
+      "command": "webpack --config webpack.config.babel.js",
+      "env"    : {
+        "DLL": "true"
+      }
     },
     "build:dev": {
       "command": "webpack --config webpack.config.babel.js --progress --colors",
       "env": {
+        "DLL"      : "false",
         "BUILD_DEV": "true"
       }
     },
     "build:release": {
       "command": "webpack --config webpack.config.babel.js --progress --colors",
       "env": {
-        "BUILD_DEV": "false",
+        "DLL"          : "false",
+        "BUILD_DEV"    : "false",
         "BUILD_RELEASE": "true"
       }
     }
   },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    }
+  },
+  "projectVersion": "v1",
   "keywords": [
     "typescript",
     "react",

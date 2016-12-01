@@ -5,12 +5,13 @@ import {
   dll
 } from './plugins.config.js';
 import {
-  BUILT_PATH
+  VERSION_PATH
 } from './path.config.js';
 
 const vendors = [
   'react',
-  'react-dom'
+  'react-dom',
+  'babel-polyfill'
 ];
 
 export default {
@@ -19,12 +20,16 @@ export default {
   },
 
   output: {
-    path    : BUILT_PATH,
+    path    : VERSION_PATH,
     filename: '[name].js',
     library : '[name]'
   },
 
   plugins: [
-    dll
-  ]
+    dll()
+  ],
+
+  resolve: {
+    modules: ['node_modules']
+  }
 };

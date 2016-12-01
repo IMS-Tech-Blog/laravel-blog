@@ -1,14 +1,15 @@
 /**
  * common config that shared by dev && prod
  */
-import fs      from 'fs';
-import path    from 'path';
+import fs         from 'fs';
+import path       from 'path';
 import {
   ROOT_PATH,
   SRC_PATH,
   BUILT_PATH,
+  VERSION_PATH,
   MANIFEST_PATH
-}              from './path.config.js';
+}                 from './path.config.js';
 import {
   dedupe,
   dllReference,
@@ -17,15 +18,14 @@ import {
   watchIgnore,
   cleanWebpack,
   htmlWebpack
-}              from './plugins.config.js';
+}                 from './plugins.config.js';
 import {
-  preLoaders,
-  loaders
-}              from './loaders.config.js';
+  allLoaders
+}                 from './loaders.config.js';
 import 'babel-polyfill';
 
 const entries = Object.create({});
-export function getEntries({exclude = null}) {
+export function getEntries(exclude = null) {
   if(!fs.existsSync(SRC_PATH) && !fs.lstatSync(SRC_PATH).isDirectory()) return;
   let children = fs.readdirSync(SRC_PATH);
 
@@ -48,40 +48,42 @@ export default {
   entry: entries,
 
   output: {
-    filename  : '[name].bundle.js',
-    path      : BUILT_PATH,
-    publicPath: '/build/'
+    filename  : '[name].[chunkhash:8].js',
+    path      : VERSION_PATH,
+    publicPath: 'build/'
   },
 
   resolve: {
-    root: [
+    alias: {},
+    modules: [
       path.join(ROOT_PATH, 'node_modules')
     ],
-    alias: null,
-    modulesDirectories: [
-      'node_modules'
-    ],
-    externals: {
+    enforceModuleExtension: false,
+    enforceExtension      : false,
+    extensions            : ['.js', '.json', '.jsx', '.css', '.scss']
+  },
 
-    }
+  resolveLoader: {
+    moduleExtensions: ['-loader']
   },
 
   plugins: [
-    dedupe,
-    dllReference,
-    define,
-    provide,
-    watchIgnore,
-    cleanWebpack,
-    htmlWebpack
-  ]
+    // dedupe(),
+    // provide(),
+    // cleanWebpack(),
+    dllReference(),
+    define(),
+    watchIgnore(),
+    htmlWebpack({
+      title   : 'Ims-Blog',
+      template: path.join(ROOT_PATH, 'index.ejs'),
+      hash    : false
+    })
+  ],
 
   module: {
-    preLoaders,
-    loaders
+    rules: allLoaders
   },
 
-  eslint: {
-    configFile: path.join(ROOT_PATH, '.eslintrc')
-  }
+  externals: {}
 }
