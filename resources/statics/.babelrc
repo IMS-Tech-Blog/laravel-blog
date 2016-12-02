@@ -1,6 +1,7 @@
 {
-  "presets": ["react", "latest"],
+  "presets": ["react", "stage-3", "latest"],
   "plugins": [
-    "transform-runtime"
+    "transform-runtime",
+    "react-hot-loader/babel"
   ]
 }

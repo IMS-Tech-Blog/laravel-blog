@@ -1,5 +1,5 @@
-import dllConfig    from './conf/dll.config.js';
-import commonConfig from './conf/webpack.config.common.js';
+import dllConfig from './conf/dll.config.js';
+import devConfig from './conf/webpack.config.dev.js';
 
 let config;
 const dll = JSON.parse(process.env.DLL);
@@ -7,7 +7,7 @@ const dll = JSON.parse(process.env.DLL);
 if(dll) {
   config = dllConfig;
 } else {
-  config = commonConfig;
+  config = devConfig;
 }
 
 export default config;

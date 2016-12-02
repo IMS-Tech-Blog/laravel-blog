@@ -8,7 +8,8 @@ import {
   SRC_PATH,
   BUILT_PATH,
   VERSION_PATH,
-  MANIFEST_PATH
+  MANIFEST_PATH,
+  VERSION
 }                 from './path.config.js';
 import {
   dedupe,
@@ -36,6 +37,14 @@ export function getEntries(exclude = null) {
   children = children.forEach(item => {
       entries[item] = [
         'babel-polyfill',
+        'react-hot-loader/patch',
+        // activate HMR for React
+
+        'webpack-dev-server/client?http://localhost:9000',
+        // bundle the client for webpack-dev-server
+        // and connect to the provided endpoint
+        // 'webpack/hot/only-dev-server',
+        'webpack/hot/dev-server',
         path.join(SRC_PATH, item, 'index.js')
       ];
   });
@@ -48,9 +57,9 @@ export default {
   entry: entries,
 
   output: {
-    filename  : '[name].[chunkhash:8].js',
+    filename  : '[name].[hash:8].js',
     path      : VERSION_PATH,
-    publicPath: 'build/'
+    // publicPath: `build/${VERSION}`
   },
 
   resolve: {
@@ -69,11 +78,14 @@ export default {
 
   plugins: [
     // dedupe(),
-    // provide(),
+    provide({
+      'React'   : 'react',
+      'ReactDOM': 'react-dom'
+    }),
     // cleanWebpack(),
     dllReference(),
     define(),
-    watchIgnore(),
+    // watchIgnore(),
     htmlWebpack({
       title   : 'Ims-Blog',
       template: path.join(ROOT_PATH, 'index.ejs'),
