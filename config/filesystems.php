@@ -45,7 +45,7 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
+            'root' => env('IMAGE_PATH', '/home/www/laravel/image'),
         ],
 
         'public' => [

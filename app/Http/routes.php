@@ -10,10 +10,24 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+use App\Http\Controllers\SitesController;
+
+use App\Http\Controllers\ArticleController;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/', 'SitesController@index');
+
+// Route::get('/phpinfo', 'SitesController@phpinfo');
+
+// Route::get('/about/{id}', 'SitesController@about');
+
+Route::resource('/articles', 'ArticleController');
+
+Route::resource('/weixin', 'WeiXinController');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +40,18 @@ Route::get('/', function () {
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
+Route::group(['middleware' => 'web'], function () {
+    // Route::auth();
+
+    Route::post('/login', 'LoginLogoutController@login');
+    
+    Route::post('/logout', 'LoginLogoutController@logout');
+
+    Route::get('/home', 'HomeController@index');
+
+    Route::resource('user','UserController');
+
+    Route::resource('image','ImageController');
+
+    Route::get('/image/{projectName}/{pixelLevel}/{imageName}','ImageController@show');
 });
