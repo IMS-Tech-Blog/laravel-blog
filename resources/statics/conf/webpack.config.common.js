@@ -37,14 +37,16 @@ export function getEntries(exclude = null) {
   children = children.forEach(item => {
       entries[item] = [
         'babel-polyfill',
-        'react-hot-loader/patch',
+        /* if use react-hot-loader@next, you should put react-hot-loader/babel in .babelrc's plugins option */
+        // 'react-hot-loader/patch',
         // activate HMR for React
 
-        'webpack-dev-server/client?http://localhost:9000',
+        // 'webpack-dev-server/client?http://localhost:9000',
         // bundle the client for webpack-dev-server
         // and connect to the provided endpoint
         // 'webpack/hot/only-dev-server',
-        'webpack/hot/dev-server',
+        // 'webpack/hot/dev-server',
+        // 'webpack-hot-middleware/client',
         path.join(SRC_PATH, item, 'index.js')
       ];
   });

@@ -6,7 +6,7 @@ import {
   ROOT_PATH
 } from './path.config.js';
  // babel-loader
-export const babel = { test: /\.js$/, loader: 'babel', exclude: /node_modules/ };
+export const babel = { test: /\.js$/, /*loader: 'babel', */use: ['react-hot', 'babel'], exclude: /node_modules/ };
 // eslint-loader
 export const eslint = { test: /\.js$/, loader: 'eslint', /*exclude: /node_modules/, */enforce: 'pre', /*options: { configFile: path.join(ROOT_PATH, '.eslintrc') }*/ };
 // css-loader

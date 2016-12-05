@@ -9,7 +9,7 @@ export const SRC_PATH  = path.join(ROOT_PATH, 'src');
 export const BUILT_PATH = path.join(ROOT_PATH, 'build');
 export const MANIFEST_PATH = path.join(ROOT_PATH, 'manifest.json');
 
-const packageJson    = fs.readFileSync(`${ROOT_PATH}\\package.json`);
+const packageJson    = fs.readFileSync(`${ROOT_PATH}/package.json`);
 export const VERSION = JSON.parse(packageJson).projectVersion;
 export const VERSION_PATH = path.join(BUILT_PATH, VERSION);
 
