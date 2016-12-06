@@ -1,0 +1,55 @@
+@mixin set-size($width: 100%, $height: 100%) {
+  height: $height;
+  width: $width;
+}
+
+$black: #000;
+$white: #fff;
+$red  : #ff0000;
+$green: #00ff00;
+$blue : #0000ff;
+
+html, body {
+  margin: 0;
+  padding: 0;
+  @include set-size;
+}
+
+.black {
+  background: $black;
+  color: $white;
+}
+.red {
+  background: $red;
+  color: $white;
+}
+.green {
+  background: $green;
+  color: $white;
+}
+.blue {
+  background: $blue;
+  color: $white;
+}
+
+:global(#app) {
+  @include set-size;
+}
+
+.root {
+  display: flex;
+  flex-direction: row;
+  composes: red;
+  @include set-size;
+}
+
+.side {
+  flex: 0.8;
+  composes: green;
+}
+
+.main {
+  flex: 2.2;
+  composes: blue;
+}
+
