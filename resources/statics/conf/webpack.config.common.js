@@ -32,7 +32,7 @@ export function getEntries(exclude = null) {
 
   if(exclude) {
     const reg = new RegExp(exclude, 'ig');
-    children = children.map(item => !reg.test(item));
+    children = children.filter(item => !reg.test(item));
   }
   children = children.forEach(item => {
       entries[item] = [
@@ -53,7 +53,7 @@ export function getEntries(exclude = null) {
 
   return entries;
 }
-getEntries();
+getEntries('public');
 
 export default {
   entry: entries,

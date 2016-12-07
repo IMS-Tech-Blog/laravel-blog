@@ -1,0 +1,26 @@
+@import 'common';
+
+@function trisect($value) {
+  @return $value / 3 + %;
+}
+
+$tri-width: trisect(100);
+
+.ims-grid {
+  @include set-absolute;
+  @include set-size;
+  z-index: -1;
+}
+
+.ims-tri {
+  $background: #00f;
+  background: $background;
+  box-sizing: border-box;
+  display: inline-block;
+  transition: transform ease-in .8s;
+  width: $tri-width;
+}
+
+:global(.side):hover .ims-tri {
+  transform: perspective(500px) rotate3d(0, 1, 0, 90deg) scale(-1, 1);
+}

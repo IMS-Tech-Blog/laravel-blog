@@ -1,0 +1,48 @@
+@import 'common';
+
+.ims-side {
+  $background: rgba(60, 58, 59, .5);
+  @include set-size;
+  background: $background;
+  box-sizing: border-box;
+  padding-top: 80px;
+  text-align: center;
+}
+
+.ims-face {
+  @include set-size(100%, auto);
+  cursor: pointer;
+  display: table-cell;
+  line-height: 150px;
+  text-align: center;
+  vertical-align: middle;
+
+  img {
+    $spread: rgba(164, 221, 255, .66);
+    $border-color: #a5ddff;
+    border: 3px solid $border-color;
+    border-radius: 100%;
+    box-shadow: 0 0 10px $spread;
+    transition: box-shadow ease-in .3s, transform ease-in .3s;
+    vertical-align: middle;
+    width: 40%;
+
+    &:hover {
+      box-shadow: 0 0 50px $spread;
+      transform: rotate(360deg);
+    }
+  }
+}
+
+.ims-name,
+.ims-motto {
+  font-size: 24px;
+  font-weight: bolder;
+  height: 80px;
+  line-height: 80px;
+}
+
+.ims-motto {
+  font-size: 1em;
+  font-weight: normal;
+}

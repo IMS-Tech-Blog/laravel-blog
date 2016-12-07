@@ -12,11 +12,11 @@ export const eslint = { test: /\.js$/, loader: 'eslint', /*exclude: /node_module
 // css-loader
 export const css = { test: /\.css$/, use: ['style', 'css'] };
 // url-loader
-export const url = { test: /\.(jpg|png|gif)$/, loader: 'url?limit=8192' };
+export const url = { test: /\.(jpg|png|gif)$/, use: [{ loader: 'url', options: { limit: '8192' } }] };
 // file-loader
 export const file = { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file' };
 // sass-loader
-export const sass = { test: /\.scss$/, use: ['style', 'css?modules', 'sass'/*, 'postcss'*/] };
+export const sass = { test: /\.scss$/, use: ['style', 'css?modules', { loader: 'sass', options: { includePaths: [path.resolve(__dirname, '../src'), path.resolve(__dirname, '../src/public/sass')] } }/*, 'postcss'*/] };
 // sass-lint-loader
 export const sasslint = { test: /\.scss$/, loader: 'sasslint', enforce: 'pre' };
 // html-minify-loader
