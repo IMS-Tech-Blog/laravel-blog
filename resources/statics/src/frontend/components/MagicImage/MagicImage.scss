@@ -14,13 +14,17 @@ $tri-width: trisect(100);
 
 .ims-tri {
   $background: #00f;
+  backface-visibility: hidden;
   background: $background;
   box-sizing: border-box;
   display: inline-block;
+  transform-style: preserve-3d;
   transition: transform ease-in .8s;
   width: $tri-width;
 }
 
-:global(.side):hover .ims-tri {
-  transform: perspective(500px) rotate3d(0, 1, 0, 90deg) scale(-1, 1);
+:global(.side:hover) {
+  .ims-tri {
+    transform: perspective(500px) rotate3d(0, 1, 0, 180deg) scale(-1, 1);
+  }
 }

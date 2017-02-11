@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './App.scss';
 import * as Components from './Components.js';
+import Aside from '../containers/Aside.js';
 
 class App extends React.Component {
   state = {
@@ -14,21 +15,12 @@ class App extends React.Component {
     const {
       offsetWidth,
       offsetHeight
-    } = this.refs.aside;
+    } = this.aside;
 
     this.setState({
       offsetWidth: offsetWidth,
       offsetHeight: offsetHeight
     })
-  }
-
-  displayMagic(offsetWidth, offsetHeight) {
-    let component = <br />;
-
-    offsetWidth && (component = <Components.MagicImage
-                                offsetWidth={offsetWidth}
-                                offsetHeight={offsetHeight} />);
-    return component;
   }
 
   render() {
@@ -37,14 +29,10 @@ class App extends React.Component {
       offsetWidth,
       offsetHeight
     } = this.state;
-    const magicImage = this.displayMagic(offsetWidth, offsetHeight);
 
     return (
       <div className={style.root}>
-        <aside className="side" ref="aside">
-          {magicImage}
-          <Components.Intro />
-        </aside>
+        <Aside ref={aside => { this.aside = aside }} offsetWidth={offsetWidth} offsetHeight={offsetHeight} />
         <main className={style.main}>main</main>
       </div>
     );

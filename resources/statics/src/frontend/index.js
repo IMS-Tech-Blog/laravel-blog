@@ -3,14 +3,17 @@
  */
 
  import { Component, PropTypes } from 'react';
+ import { Provider } from 'react-redux';
  import { render } from 'react-dom';
- // import { AppContainer } from 'react-hot-loader';
  import App from './components/App.js';
+ import { configStore } from './redux/store.js';
+
+ const store = configStore();
 
  render(
-   // <AppContainer>
-     <App />,
-   // </AppContainer>,
+   <Provider store={store}>
+     <App />
+   </Provider>,
    document.getElementById('app')
  );
 
