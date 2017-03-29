@@ -62,6 +62,7 @@ export default class Aside extends Component {
   	const { handleEnter, handleLeave, state } = this.props;
   	const magicImage = this.displayMagic(offsetWidth, offsetHeight);
 
+
     return (
       <aside className="side"
       ref={aside => { this.aside = aside }}

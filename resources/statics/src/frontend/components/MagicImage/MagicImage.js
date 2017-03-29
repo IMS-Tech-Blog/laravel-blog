@@ -16,14 +16,31 @@ class MagicChunk extends Component {
   }
 
   handleMouseEnter = () => {
+
     let { angle } = this.state;
-    angle ++;
+    if(angle >= 180) return;
+
+    angle += 5;
+
+    let { second } = this.props;
 
     this.setState({
       angle: angle
     });
 
-    angle <= 180 && requestAnimationFrame(this.handleMouseEnter);
+    requestAnimationFrame(this.handleMouseEnter);
+    // setTimeout(() => requestAnimationFrame(this.handleMouseEnter), second * 50);
+    
+  }
+
+  componentDidMount() {
+
+  }
+
+  componentWillReceiveProps() {
+    // this.handleMouseEnter();
+    let { second } = this.props;
+    console.log(second);
   }
 
   render() {
@@ -31,7 +48,7 @@ class MagicChunk extends Component {
     const { angle } = this.state;
     const { handleMouseEnter } = this;
 
-    const style = {
+    const currentStyle = {
       height: `${height}px`,
       transform: `perspective(500px)
       rotate3d(0, 1, 0, ${angle}deg)
@@ -41,8 +58,7 @@ class MagicChunk extends Component {
     return (
       <div
       className={style['ims-tri']}
-      onMouseEnter={handleMouseEnter}
-      style={style}>
+      style={currentStyle}>
         魔法图片
       </div>
     );
@@ -98,8 +114,8 @@ export default class MagicImage extends Component {
     let total = Math.ceil(offsetHeight / height) * 3;
 
     const chunks = this.getChunks(total, height);
-    return (
 
+    return (
       <div
       className={style['ims-grid']}>
         {chunks}
