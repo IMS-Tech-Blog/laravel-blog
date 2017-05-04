@@ -14,8 +14,9 @@ $tri-width: trisect(100);
 
 .ims-tri {
   $background: #00f;
+  $backgroundImage: url('../../../public/images/pic1.jpg');
   backface-visibility: hidden;
-  background: $background;
+  background: $backgroundImage;
   box-sizing: border-box;
   display: inline-block;
   transform-style: preserve-3d;

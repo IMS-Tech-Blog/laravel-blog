@@ -38,13 +38,13 @@ class MagicChunk extends Component {
   }
 
   componentWillReceiveProps() {
-    // this.handleMouseEnter();
+    this.handleMouseEnter();
     let { second } = this.props;
     console.log(second);
   }
 
   render() {
-    const { status, height } = this.props;
+    const { status, height, imsRotate } = this.props;
     const { angle } = this.state;
     const { handleMouseEnter } = this;
 
@@ -57,7 +57,7 @@ class MagicChunk extends Component {
 
     return (
       <div
-      className={style['ims-tri']}
+      className={`${style['ims-tri']} ${imsRotate}`}
       style={currentStyle}>
         魔法图片
       </div>
